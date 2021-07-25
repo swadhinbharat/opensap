@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
+    <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="//necolas.github.io/normalize.css/7.0.0/normalize.css"> -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700" rel="stylesheet" />
+    <script src="main.js"></script>
+</head>
+
+<body ng-app="myapp">
+    <div ng-controller="OpenSAPController">
+        <!-- <span ng-repeat="course in courses | orderBy:sortType:sortReverse | filter:filterValue" class="card" width="20%"> -->
+        <!-- <img src="{{course.attributes.image_url}}" alt="Avatar" style="width:20%"/> -->
+        <!--     <div class="card" ng-repeat="course in courses | orderBy:sortType:sortReverse | filter:filterValue">
+        <img  src="{{course.attributes.image_url}}" width="60vw"/>
+</div>
+ -->
+        <div class="container">
+            <input type="text" class="form-control" ng-model="filterValue" placeholder="Filter" type="text" width="100%">
+            <br>
+            <table class="table table-hover table-bordered " width="100%">
+                <thead>
+                    <tr>
+                        <!-- <th>Title</th> -->
+                        <!-- <th>Status</th> -->
+                        <!-- <th>Accessible</th> -->
+                        <!-- <th>Start Date</th> -->
+                        <!-- <th>Category</th> -->
+                        <!-- <th>Topic</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="course in courses | filter:filterValue" class="{{course.attributes.status | statusFormatter}}">
+                        <td width="100%"><a href="https://open.sap.com/courses/{{course.attributes.slug}}/progress" target="_blank">{{course.attributes.title}}{{course.attributes.status == 'announced' ? ' (' + (course.attributes.start_at | dateFormatter ) + ')': '' }}</a>
+                            <br>
+                            <small class="small">
+                                <span ng-repeat="topic in course.attributes.classifiers.topic">{{topic}}{{($index < course.attributes.classifiers.topic.length - 1) ? ' | ' : ''}}</span>
+                            </small>
+                            <!-- <img src="{{course.attributes.image_url}}" alt="Avatar" style="width:20%"/>  -->
+                        </td>
+                        <picture src="{{course.attributes.image_url}}" />
+                        <!-- <td>{{course.attributes.status}}</td> -->
+                        <!-- <td>{{course.attributes.accessible}}</td> -->
+                        <!-- <td>{{course.attributes.start_at | date | dateFormatter}}</td> -->
+                        <!-- <td><a href="{{course.url}}" target="_blank">{{course.title}}</a></td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

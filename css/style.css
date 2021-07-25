@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+	margin-top: 20px;
+}
+
+html { overflow-y: scroll; }
+
+.small {
+	color: GREY;
+}
