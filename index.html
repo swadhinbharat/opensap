@@ -7,11 +7,16 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.19.1/moment.js"></script>
-    <script src="//code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+        integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        crossorigin="anonymous">
     <!-- <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
     <!-- <link rel="stylesheet" href="//necolas.github.io/normalize.css/7.0.0/normalize.css"> -->
     <link rel="stylesheet" href="css/style.css">
@@ -20,6 +25,33 @@
 </head>
 
 <body ng-app="myapp">
+
+    <div ng-controller="OpenSAPController">
+        <ul class="nav nav-tabs">
+            <div class="form-group">
+                <div class="form-check">
+                    <li ng-repeat="category in categories">
+                        <input class="form-check-input" type="checkbox" id="categoryId{{category}}"
+                            ng-click="onCategorySelected($event, category)">
+                        <label class="form-check-label" for="categoryId{{category}}">
+                            {{category}}
+                        </label>
+                </div>
+                </li>
+            </div>
+            <div>
+                
+            </div>
+            <!-- <div class="form-check">
+                    <input class="form-check-input position-static" type="checkbox" [value]="{{category}}" 
+                    (change)="onCategorySelected($event)"aria-label="{{category}}">
+                  </div> -->
+
+            <!-- <input class="form-check-input position-static" type="checkbox" [value]="category" (change)="onCategorySelected($event)"> -->
+            <!-- {{category}} -->
+        </ul>
+    </div>
+
     <div ng-controller="OpenSAPController">
         <!-- <span ng-repeat="course in courses | orderBy:sortType:sortReverse | filter:filterValue" class="card" width="20%"> -->
         <!-- <img src="{{course.attributes.image_url}}" alt="Avatar" style="width:20%"/> -->
@@ -28,7 +60,8 @@
 </div>
  -->
         <div class="container">
-            <input type="text" class="form-control" ng-model="filterValue" placeholder="Filter" type="text" width="100%">
+            <input type="text" class="form-control" ng-model="filterValue" placeholder="Filter" type="text"
+                width="100%">
             <br>
             <table class="table table-hover table-bordered " width="100%">
                 <thead>
@@ -42,11 +75,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="course in courses | filter:filterValue" class="{{course.attributes.status | statusFormatter}}">
-                        <td width="100%"><a href="https://open.sap.com/courses/{{course.attributes.slug}}/progress" target="_blank">{{course.attributes.title}}{{course.attributes.status == 'announced' ? ' (' + (course.attributes.start_at | dateFormatter ) + ')': '' }}</a>
+                    <tr ng-repeat="course in courses | filter:filterValue"
+                        class="{{course.attributes.status | statusFormatter}}">
+                        <td width="100%"><a href="https://open.sap.com/courses/{{course.attributes.slug}}/progress"
+                                target="_blank">{{course.attributes.title}}{{course.attributes.status == 'announced' ? '
+                                (' + (course.attributes.start_at | dateFormatter ) + ')': '' }}</a>
                             <br>
                             <small class="small">
-                                <span ng-repeat="topic in course.attributes.classifiers.topic">{{topic}}{{($index < course.attributes.classifiers.topic.length - 1) ? ' | ' : ''}}</span>
+                                <span ng-repeat="topic in course.attributes.classifiers.topic">{{topic}}{{($index <
+                                        course.attributes.classifiers.topic.length - 1) ? ' | ' : '' }}</span>
                             </small>
                             <!-- <img src="{{course.attributes.image_url}}" alt="Avatar" style="width:20%"/>  -->
                         </td>

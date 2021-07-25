@@ -1,21 +1,23 @@
 angular.module("myapp", []).controller('OpenSAPController', ['$scope', '$http',
-    function($scope, $http) {
+    function ($scope, $http) {
 
         // Initializations
         // $scope.filterValue = 's4hana';
-        
+
         // var opensapURL='/destinations/northwind/V4/Northwind/Northwind.svc/Invoices?$top=15';  
-        var opensapURL = 'https://open.sap.com/api/v2/courses?include=channel%2Cuser_enrollment';
+        // var opensapURL = 'https://open.sap.com/api/v2/courses?include=channel%2Cuser_enrollment';
+        var opensapURL = '/data/courses.json';
         $http({
             method: 'GET',
             url: opensapURL
         }).then(function successCallback(response) {
-            var results = response.data.data.filter(function(course){
+            var results = response.data.data.filter(function (course) {
                 return course.attributes.language === 'en';
             });
             var courses = [];
+            var categories = [];
 
-            _.each(results, function(result) {
+            _.each(results, function (result) {
                 var course = {};
                 course.title = result.attributes.title;
                 course.status = result.attributes.status;
@@ -38,19 +40,33 @@ angular.module("myapp", []).controller('OpenSAPController', ['$scope', '$http',
 
 
                 // courses.push(course);
+                categories.push(course.category);
                 courses.push(result);
             });
+            categories = categories.filter((value, index, self) => { return self.indexOf(value) === index; });
+
             $scope.courses = courses;
+            $scope.categories = categories;
+
+            // console.log(categories);
         }, function errorCallback(response) {
             console.log("Error while fetching courses" + response);
         });
+
+        $scope.onCategorySelected = function (evt, category) {
+            // debugger
+            $scope.categories
+            console.log(category);
+            // $scope.greeting = 'Hello ' + $scope.username + '!';
+        };
+
     }
-]).filter('dateFormatter', function() { 
-    return function(myDate) {
+]).filter('dateFormatter', function () {
+    return function (myDate) {
         return moment(new Date(myDate), 'YYYYMMDD').fromNow();
     };
-}).filter('statusFormatter', function() {
-    return function(status) {
+}).filter('statusFormatter', function () {
+    return function (status) {
         switch (status) {
             case 'announced':
                 return 'table-active';
@@ -60,6 +76,5 @@ angular.module("myapp", []).controller('OpenSAPController', ['$scope', '$http',
                 return 'table-warning';
             default:
         }
-        x
     };
 });
